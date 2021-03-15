@@ -78,7 +78,7 @@ namespace PetStoreApiVerification.Features
 #line 4
 #line hidden
 #line 5
- testRunner.Given("I will call the base uri  \"https://petstore.swagger.io/v2/\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I will call the PetStore base uri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
         }
         
@@ -113,7 +113,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 8
- testRunner.When("I perform POST operation for \"/user\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I perform POST operation for User", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 9
  testRunner.Then("I should see the response as successful with status code as 200 ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -171,7 +171,7 @@ this.FeatureBackground();
                             "98765434456",
                             "10"});
 #line 12
- testRunner.When("I perform POST operation for \"/user\" with body", ((string)(null)), table1, "When ");
+ testRunner.When("I perform POST operation for User with Table data", ((string)(null)), table1, "When ");
 #line hidden
 #line 15
  testRunner.Then("I should see the response as successful with status code as 200 ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -233,8 +233,7 @@ this.FeatureBackground();
                             "98765434456",
                             "5"});
 #line 18
- testRunner.When(string.Format("I perform PUT operation for \"/user/{{username}}\" to update details of username \"{" +
-                            "0}\"", username), ((string)(null)), table2, "When ");
+ testRunner.When(string.Format("I perform PUT operation for User to update details of username \"{0}\"", username), ((string)(null)), table2, "When ");
 #line hidden
 #line 21
  testRunner.Then(string.Format("I should see the response with status code {0}", statuscode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -279,7 +278,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 29
- testRunner.When(string.Format("I perform Delete operation for \"/user/{{username}}\" By providing username \"{0}\"", username), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I perform Delete operation for User By providing username \"{0}\"", username), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 30
  testRunner.Then(string.Format("I should see the response as successfully deleted and status code {0}", statuscode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -324,7 +323,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 39
- testRunner.When(string.Format("I perform GET operation for  \"/user/{{username}}\" by providing username \"{0}\"", username), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I perform GET operation for  User by providing username \"{0}\"", username), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 40
  testRunner.Then(string.Format("I should see the response with status code {0}", statuscode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -335,7 +334,7 @@ this.FeatureBackground();
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Create User by POST and Verify by GET operation")]
-        [NUnit.Framework.TestCaseAttribute("10", "Johnson", "John", "R", "john@gmail.com", "john123", "987643434456", "10", "200", null)]
+        [NUnit.Framework.TestCaseAttribute("20", "Johnson", "John", "R", "john@gmail.com", "john123", "987643434456", "10", "200", null)]
         public virtual void CreateUserByPOSTAndVerifyByGETOperation(string id, string username, string firstName, string lastName, string email, string password, string phone, string userstatus, string statuscode, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -374,11 +373,11 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 49
- testRunner.When(string.Format("I perform POST operation for \"/user\" with body {0},{1},{2},{3},{4},{5},{6} and {7" +
-                            "}", id, username, firstName, lastName, email, password, phone, userstatus), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I perform POST operation for User with examples  \"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{" +
+                            "5}\",\"{6}\",\"{7}\"", id, username, firstName, lastName, email, password, phone, userstatus), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 50
- testRunner.And(string.Format("I perform GET operation for  \"/user/{{username}}\" by providing username \"{0}\"", username), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("I perform GET operation for  User by providing username \"{0}\"", username), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 51
  testRunner.Then(string.Format("I should see that the record created with the POST matches with the response of t" +

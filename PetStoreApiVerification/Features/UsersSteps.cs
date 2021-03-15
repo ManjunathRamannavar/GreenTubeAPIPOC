@@ -1,9 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using PetStoreApiVerification.Models;
-using PetStoreApiVerification.Utiliti;
+using PetStoreApiVerification.Utilities;
 using RestSharp;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
@@ -14,91 +16,92 @@ namespace PetStoreApiVerification.Features
     {
 
         private readonly Settings settings;
-
+        private readonly Endpoints endpoints;
         User userObj;
 
-        public UsersSteps(Settings settings)
+        public UsersSteps(Settings settings, Endpoints endpoints)
         {
             this.settings = settings;
+            this.endpoints = endpoints;
         }
 
-        [Given(@"I will call the base uri  ""(.*)""")]
-        public void GivenIWillCallTheBaseUri(string baseuri)
+        
+        [Given(@"I will call the PetStore base uri")]
+        public void GivenIWillCallThePetStoreBaseUri()
         {
-            settings.client = new RestClient(baseuri);
+            settings.client = new RestClient(endpoints.BaseURI);
         }
 
-
-        [When(@"I perform POST operation for ""(.*)""")]
-        public void WhenIPerformPOSTOperationFor(string endpoint)
+        [When(@"I perform POST operation for User")]
+        public void WhenIPerformPOSTOperationForUser()
         {
-            settings.request = new RestRequest(endpoint, Method.POST);
+            settings.request = new RestRequest(endpoints.POSTUser, Method.POST);
             settings.request.RequestFormat = DataFormat.Json;
+
             settings.request.AddJsonBody(new User() { id = 3, username = "Suresh Raj", firstName = "Suresh", lastName = "Raj", email = "sureshraj@gmail.com", password = "suresh123", phone = "9828383838", userStatus = 10 });
 
         }
 
-        [When(@"I perform POST operation for ""(.*)"" with body")]
-        public void WhenIPerformPOSTOperationForWithBody(string endpoint, Table table)
+       
+        [When(@"I perform POST operation for User with Table data")]
+        public void WhenIPerformPOSTOperationForUserWithTableData(Table table)
         {
-            settings.request = new RestRequest(endpoint, Method.POST);
+            settings.request = new RestRequest(endpoints.POSTUser, Method.POST);
             settings.request.RequestFormat = DataFormat.Json; ;
 
             var userValue = table.CreateInstance<User>();
             settings.request.AddJsonBody(new User() { id = userValue.id, username = userValue.username.ToString(), firstName = userValue.firstName.ToString(), lastName = userValue.lastName.ToString(), email = userValue.email.ToString(), password = userValue.password.ToString(), phone = userValue.phone.ToString(), userStatus = userValue.userStatus });
-
         }
 
-        [When(@"I perform PUT operation for ""(.*)"" to update details of username ""(.*)""")]
-        public void WhenIPerformPUTOperationForToUpdateDetailsOfUsername(string endpoint, string uname, Table table)
+
+        [When(@"I perform PUT operation for User to update details of username ""(.*)""")]
+        public void WhenIPerformPUTOperationForUserToUpdateDetailsOfUsername(string uname, Table table)
         {
-            settings.request = new RestRequest(endpoint, Method.PUT);
+            settings.request = new RestRequest(endpoints.PUTUser, Method.PUT);
             settings.request.AddUrlSegment("username", uname);
             settings.request.RequestFormat = DataFormat.Json;
 
             var userValue = table.CreateInstance<User>();
             settings.request.AddJsonBody(new User() { id = userValue.id, username = userValue.username.ToString(), firstName = userValue.firstName.ToString(), lastName = userValue.lastName.ToString(), email = userValue.email.ToString(), password = userValue.password.ToString(), phone = userValue.phone.ToString(), userStatus = userValue.userStatus });
-
         }
 
-
-        [When(@"I perform Delete operation for ""(.*)"" By providing username ""(.*)""")]
-        public void WhenIPerformDeleteOperationForByProvidingUsername(string endpoint, string uname)
+        [When(@"I perform Delete operation for User By providing username ""(.*)""")]
+        public void WhenIPerformDeleteOperationForUserByProvidingUsername(string uname)
         {
-            settings.request = new RestRequest(endpoint, Method.DELETE);
+            settings.request = new RestRequest(endpoints.DELETEUser, Method.DELETE);
             settings.request.AddUrlSegment("username", uname);
             settings.request.RequestFormat = DataFormat.Json;
-
         }
 
-        [When(@"I perform GET operation for  ""(.*)"" by providing username ""(.*)""")]
-        public void WhenIPerformGETOperationForByProvidingUsername(string endpoint, string username)
+        [When(@"I perform GET operation for  User by providing username ""(.*)""")]
+        public void WhenIPerformGETOperationForUserByProvidingUsername(string username)
         {
-            settings.request = new RestRequest(endpoint, Method.GET);
+            settings.request = new RestRequest(endpoints.GETUser, Method.GET);
             settings.request.AddUrlSegment("username", username);
             settings.request.RequestFormat = DataFormat.Json;
         }
 
-        [When(@"I perform POST operation for ""(.*)"" with body (.*),(.*),(.*),(.*),(.*),(.*),(.*) and (.*)")]
-        public void WhenIPerformPOSTOperationForWithBodyAnd(string endpoint, string uid, string userName, string firstName, string lastName, string email, string password, string phone, string userstatus)
+        [When(@"I perform POST operation for User with examples  ""(.*)"",""(.*)"",""(.*)"",""(.*)"",""(.*)"",""(.*)"",""(.*)"",""(.*)""")]
+        public void WhenIPerformPOSTOperationForUserWithExamples(string uid, string userName, string firstName, string lastName, string email, string password, string phone, string userstatus)
         {
             int num = System.Convert.ToInt32(uid);
             int ustatus = System.Convert.ToInt32(userstatus);
-            settings.request = new RestRequest(endpoint, Method.POST);
+            settings.request = new RestRequest(endpoints.POSTUser, Method.POST);
             settings.request.RequestFormat = DataFormat.Json; ;
 
-            IRestRequest postReq = settings.request.AddJsonBody(new User() { id = num, username = userName, firstName = firstName, lastName = lastName, email = email, password = password, phone = phone, userStatus = ustatus });
+          settings.request.AddJsonBody(new User() { id = num, username = userName, firstName = firstName, lastName = lastName, email = email, password = password, phone = phone, userStatus = ustatus });
+            
             //Creating User object reference userObj for storing the POST request attributes
             userObj = new User() { id = num, username = userName, firstName = firstName, lastName = lastName, email = email, password = password, phone = phone, userStatus = ustatus };
+            
             Console.WriteLine("==================");
             settings.response = settings.client.Execute(settings.request);
             JObject postResponse = JObject.Parse(settings.response.Content);
             Console.WriteLine(postResponse);
 
             Console.WriteLine("==================");
-
-
         }
+       
 
 
         [Then(@"I should see that the record created with the POST matches with the response of the GET with status code (.*)")]
@@ -108,7 +111,10 @@ namespace PetStoreApiVerification.Features
             JObject getObjs = JObject.Parse(settings.response.Content);
             int StatusCode = (int)settings.response.StatusCode;
             //Assert that correct Status is returned
+
+           
             Console.WriteLine(getObjs);
+            
             // Verifying that each attribute of POST request matches with the corresponding attribute of GET resposnse
             Assert.AreEqual(userObj.id, getObjs.GetValue("id"), "POST request record id does not match with GET response id");
             Assert.AreEqual(userObj.username, getObjs.GetValue("username"), "POST request record username does not match with GET response username");

@@ -3,7 +3,7 @@ using AventStack.ExtentReports.Configuration;
 using AventStack.ExtentReports.Gherkin.Model;
 using AventStack.ExtentReports.Reporter;
 using BoDi;
-using PetStoreApiVerification.Utiliti;
+using PetStoreApiVerification.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +31,7 @@ namespace PetStoreApiVerification.Hooks
         [BeforeTestRun]
         public static void InitializeReport()
         {
-            var htmlReporter = new ExtentHtmlReporter("C:\\Users\\TYSS\\source\\repos\\PetStoreApiVerification\\PetStoreApiVerification\\Reports\\ExtentReport.html");
+            var htmlReporter = new ExtentHtmlReporter("D:\\GreenTube\\PetStoreApiVerification\\Reports\\ExtentReport.html");
             htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             extent = new ExtentReports();
             extent.AttachReporter(htmlReporter);
@@ -52,13 +52,11 @@ namespace PetStoreApiVerification.Hooks
 
 
         [BeforeScenario]
-        public void Initialize()
-        {
-            scenario = featureName.CreateNode<Scenario>(ScenarioContext.Current.ScenarioInfo.Title);
-
-        }
+        [Obsolete]
+        public void Initialize() => scenario = featureName.CreateNode<Scenario>(ScenarioContext.Current.ScenarioInfo.Title);
 
         [AfterStep]
+        [Obsolete]
         public void InsertReportingSteps()
         {
             // scenario.CreateNode<Given>(ScenarioStepContext.Current.StepInfo.Text);
