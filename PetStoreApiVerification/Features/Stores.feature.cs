@@ -137,7 +137,7 @@ this.FeatureBackground();
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Find purchase order by ID")]
         [NUnit.Framework.TestCaseAttribute("1", "200", null)]
-        [NUnit.Framework.TestCaseAttribute("11", "404", null)]
+        [NUnit.Framework.TestCaseAttribute("1111", "404", null)]
         public virtual void FindPurchaseOrderByID(string iD, string statuscode, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -173,6 +173,59 @@ this.FeatureBackground();
 #line hidden
 #line 15
  testRunner.Then(string.Format("I should see the response with different status code {0}", statuscode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Create Order by POST and Verify by GET operation")]
+        [NUnit.Framework.TestCaseAttribute("10", "3", "10", "waiting", "false", "200", null)]
+        public virtual void CreateOrderByPOSTAndVerifyByGETOperation(string id, string petId, string quantity, string status, string complete, string statuscode, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("id", id);
+            argumentsOfScenario.Add("petId", petId);
+            argumentsOfScenario.Add("quantity", quantity);
+            argumentsOfScenario.Add("status", status);
+            argumentsOfScenario.Add("complete", complete);
+            argumentsOfScenario.Add("statuscode", statuscode);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create Order by POST and Verify by GET operation", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 22
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 4
+this.FeatureBackground();
+#line hidden
+#line 23
+ testRunner.When(string.Format("I perform POST operation for Order with examples as \"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\"" +
+                            "", id, petId, quantity, status, complete), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 24
+ testRunner.And(string.Format("I perform GET operation for  order by providing orderId {0} to check the PoST req" +
+                            "uest succesfully created order", id), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 25
+ testRunner.Then(string.Format("I should see that the record created with the Store POST matches with the respons" +
+                            "e of the store GET with status code {0}", statuscode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
