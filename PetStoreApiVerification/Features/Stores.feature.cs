@@ -20,22 +20,22 @@ namespace PetStoreApiVerification.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Pet")]
-    public partial class PetFeature
+    [NUnit.Framework.DescriptionAttribute("Stores")]
+    public partial class StoresFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "Pet.feature"
+#line 1 "Stores.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Pet", "\tEverything about Pets", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Stores", "\tAccess to Petstore orders", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -83,12 +83,12 @@ namespace PetStoreApiVerification.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add a new pet to the store")]
-        public virtual void AddANewPetToTheStore()
+        [NUnit.Framework.DescriptionAttribute("Place an order for a PET")]
+        public virtual void PlaceAnOrderForAPET()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a new pet to the store", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Place an order for a PET", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -112,28 +112,40 @@ this.ScenarioInitialize(scenarioInfo);
 #line 4
 this.FeatureBackground();
 #line hidden
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                            "id",
+                            "petId",
+                            "quantity",
+                            "status",
+                            "complete"});
+                table1.AddRow(new string[] {
+                            "1",
+                            "1",
+                            "10",
+                            "placed",
+                            "true"});
 #line 8
- testRunner.When("I perform POST operation for PET", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I perform POST operation to place the order for pet", ((string)(null)), table1, "When ");
 #line hidden
-#line 9
- testRunner.Then("I should see the response as successful with status code", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 11
+ testRunner.Then("I should see the response as successful with status code as 200 ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Verify the GET operation with different PETID and status codes")]
-        [NUnit.Framework.TestCaseAttribute("20", "200", null)]
-        [NUnit.Framework.TestCaseAttribute("500", "404", null)]
-        public virtual void VerifyTheGETOperationWithDifferentPETIDAndStatusCodes(string petID, string statuscode, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Find purchase order by ID")]
+        [NUnit.Framework.TestCaseAttribute("1", "200", null)]
+        [NUnit.Framework.TestCaseAttribute("11", "404", null)]
+        public virtual void FindPurchaseOrderByID(string iD, string statuscode, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("petID", petID);
+            argumentsOfScenario.Add("ID", iD);
             argumentsOfScenario.Add("statuscode", statuscode);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify the GET operation with different PETID and status codes", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 11
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Find purchase order by ID", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 13
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -156,10 +168,10 @@ this.ScenarioInitialize(scenarioInfo);
 #line 4
 this.FeatureBackground();
 #line hidden
-#line 12
- testRunner.When(string.Format("I perform GET operation for PET by providing Pet ID {0}", petID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 14
+ testRunner.When(string.Format("I perform GET operation to find purchase order by ID as {0}", iD), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 13
+#line 15
  testRunner.Then(string.Format("I should see the response with different status code {0}", statuscode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

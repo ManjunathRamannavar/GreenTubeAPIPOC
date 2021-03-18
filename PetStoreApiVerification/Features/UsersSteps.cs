@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using PetStoreApiVerification.Models;
 using PetStoreApiVerification.Utilities;
 using RestSharp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
@@ -17,7 +17,7 @@ namespace PetStoreApiVerification.Features
 
         private readonly Settings settings;
         private readonly Endpoints endpoints;
-        
+
         JObject jObjectbody;
 
         public UsersSteps(Settings settings, Endpoints endpoints)
@@ -26,11 +26,13 @@ namespace PetStoreApiVerification.Features
             this.endpoints = endpoints;
         }
 
-        
+
         [Given(@"I will call the PetStore base uri")]
         public void GivenIWillCallThePetStoreBaseUri()
         {
-            settings.client = new RestClient(endpoints.BaseURI);
+            //To get the base uri from app.config file
+            string url = ConfigurationManager.AppSettings["baseurl"];
+            settings.client = new RestClient(url);
         }
 
         [When(@"I perform POST operation for User")]
@@ -43,7 +45,7 @@ namespace PetStoreApiVerification.Features
 
         }
 
-       
+
         [When(@"I perform POST operation for User with Table data")]
         public void WhenIPerformPOSTOperationForUserWithTableData(Table table)
         {
@@ -88,35 +90,27 @@ namespace PetStoreApiVerification.Features
             int num = System.Convert.ToInt32(uid);
             int ustatus = System.Convert.ToInt32(userstatus);
             settings.request = new RestRequest(endpoints.POSTUser, Method.POST);
-            settings.request.RequestFormat = DataFormat.Json; ;
+            settings.request.RequestFormat = DataFormat.Json;
 
             // settings.request.AddJsonBody(new User() { id = num, username = userName, firstName = firstName, lastName = lastName, email = email, password = password, phone = phone, userStatus = ustatus });
 
             //Creating User object reference userObj for storing the POST request attributes
             //  userObj = new User() { id = num, username = userName, firstName = firstName, lastName = lastName, email = email, password = password, phone = phone, userStatus = ustatus };
-           
+
             jObjectbody = new JObject();
-            jObjectbody.Add("id", num); 
+            jObjectbody.Add("id", num);
             jObjectbody.Add("username", userName);
             jObjectbody.Add("firstName", firstName);
-            jObjectbody.Add("lastName", lastName); 
+            jObjectbody.Add("lastName", lastName);
             jObjectbody.Add("email", email);
             jObjectbody.Add("password", password);
             jObjectbody.Add("phone", phone);
             jObjectbody.Add("userStatus", ustatus);
             settings.request.AddParameter("application/json", jObjectbody, ParameterType.RequestBody);
 
-           // Console.WriteLine(jObjectbody);
-            Console.WriteLine("==================");
-            //settings.response = settings.client.Execute(settings.request);
-           
-           
-           
-           // Console.WriteLine(postResponse);
-
-            Console.WriteLine("==================");
+            settings.response = settings.client.Execute(settings.request);
         }
-       
+
 
 
         [Then(@"I should see that the record created with the POST matches with the response of the GET with status code (.*)")]
@@ -127,20 +121,20 @@ namespace PetStoreApiVerification.Features
             int StatusCode = (int)settings.response.StatusCode;
             //Assert that correct Status is returned
 
-           
-           // Console.WriteLine(getObjs);
 
-              Assert.AreEqual(jObjectbody.ToString(), getObjs.ToString(), "Post request not matches with Get Rsponse");
+            // Console.WriteLine(getObjs);
+
+            Assert.AreEqual(jObjectbody.ToString(), getObjs.ToString(), "Post request not matches with Get Rsponse");
             // Verifying that each attribute of POST request matches with the corresponding attribute of GET resposnse
-          /*  Assert.AreEqual(userObj.id, getObjs.GetValue("id"), "POST request record id does not match with GET response id");
-            Assert.AreEqual(userObj.username, getObjs.GetValue("username"), "POST request record username does not match with GET response username");
-            Assert.AreEqual(userObj.firstName, getObjs.GetValue("firstName"), "POST request record firstName does not match with GET response firstName");
-            Assert.AreEqual(userObj.lastName, getObjs.GetValue("lastName"), "POST request record lastName does not match with GET response lastName");
-            Assert.AreEqual(userObj.email, getObjs.GetValue("email"), "POST request record email does not match with GET response email");
-            Assert.AreEqual(userObj.password, getObjs.GetValue("password"), "POST request record password does not match with GET response password");
-            Assert.AreEqual(userObj.phone, getObjs.GetValue("phone"), "POST request record phone does not match with GET response phone");
-            Assert.AreEqual(userObj.userStatus, getObjs.GetValue("userStatus"), "POST request record userStatus does not match with GET response userStatus");
-            */
+            /*  Assert.AreEqual(userObj.id, getObjs.GetValue("id"), "POST request record id does not match with GET response id");
+              Assert.AreEqual(userObj.username, getObjs.GetValue("username"), "POST request record username does not match with GET response username");
+              Assert.AreEqual(userObj.firstName, getObjs.GetValue("firstName"), "POST request record firstName does not match with GET response firstName");
+              Assert.AreEqual(userObj.lastName, getObjs.GetValue("lastName"), "POST request record lastName does not match with GET response lastName");
+              Assert.AreEqual(userObj.email, getObjs.GetValue("email"), "POST request record email does not match with GET response email");
+              Assert.AreEqual(userObj.password, getObjs.GetValue("password"), "POST request record password does not match with GET response password");
+              Assert.AreEqual(userObj.phone, getObjs.GetValue("phone"), "POST request record phone does not match with GET response phone");
+              Assert.AreEqual(userObj.userStatus, getObjs.GetValue("userStatus"), "POST request record userStatus does not match with GET response userStatus");
+              */
             // Verifying the GET response status code
             Assert.AreEqual(status, StatusCode, "Status code is not " + status);
 

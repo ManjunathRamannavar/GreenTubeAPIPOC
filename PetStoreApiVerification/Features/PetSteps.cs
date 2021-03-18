@@ -17,7 +17,7 @@ namespace PetStoreApiVerification.Features
         private readonly Settings settings;
         private readonly Endpoints endpoints;
 
-      
+
         public PetSteps(Settings settings, Endpoints endpoints)
         {
             this.settings = settings;
@@ -30,11 +30,11 @@ namespace PetStoreApiVerification.Features
             settings.request = new RestRequest(endpoints.POSTNewPet, Method.POST);
             settings.request.RequestFormat = DataFormat.Json;
             settings.request.AddJsonBody(new Pet() { id = 20, category = new Category() { id = 200, name = "Indian" }, name = "Doggie", photoUrls = new List<string>() { "D:\\GreenTube\\PetStoreApiVerification\\Image\\download.jfif" }, tags = new List<Tag>() { new Tag() { id = 300, name = "White" } }, status = "available" });
-           
-          
+
+
         }
 
-      
+
         [When(@"I perform GET operation for PET by providing Pet ID (.*)")]
         public void WhenIPerformGETOperationForPETByProvidingPetID(string pId)
         {
@@ -46,40 +46,17 @@ namespace PetStoreApiVerification.Features
 
         }
 
-
-        [When(@"I perform POST operation for ""(.*)""")]
-        public void WhenIPerformPOSTOperationFor(string endpoint)
-        {
-            settings.request = new RestRequest(endpoint, Method.POST);
-            settings.request.RequestFormat = DataFormat.Json;
-            DateTime dt = DateTime.Now;
-            settings.request.AddJsonBody(new Store() { id = 5, petId = 2, quantity = 1, shipDate = dt, status = "placed", complete = true });
-        }
-
-        [When(@"I perform GET operation for ""(.*)""  with orderId ""(.*)""")]
-        public void WhenIPerformGETOperationForWithOrderId(string endpoint, int orderId)
-        {
-            settings.request = new RestRequest(endpoint, Method.GET);
-            settings.request.AddUrlSegment("orderId", orderId);
-            settings.request.RequestFormat = DataFormat.Json;
-
-        }
-
-
-
-
-
         [Then(@"I should see the response with different status code (.*)")]
         public void ThenIShouldSeeTheResponseWithDifferentStatusCode(int status)
         {
             settings.response = settings.client.Execute(settings.request);
-           
+
             JObject objs = JObject.Parse(settings.response.Content);
             int StatusCode = (int)settings.response.StatusCode;
             //Assert that correct Status is returned
             Console.WriteLine(objs);
             Assert.AreEqual(status, StatusCode, "Status code is not " + status);
-            
+
         }
 
 
@@ -93,7 +70,7 @@ namespace PetStoreApiVerification.Features
             int StatusCode = (int)settings.response.StatusCode;
             //Assert that correct Status is returned
             Console.WriteLine(objs);
-            Assert.AreEqual(200, StatusCode, "Status code is not 200 " );
+            Assert.AreEqual(200, StatusCode, "Status code is not 200 ");
         }
     }
 }

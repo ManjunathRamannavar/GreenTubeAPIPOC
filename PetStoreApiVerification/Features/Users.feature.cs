@@ -152,7 +152,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 4
 this.FeatureBackground();
 #line hidden
-                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                             "id",
                             "username",
                             "firstName",
@@ -161,7 +161,7 @@ this.FeatureBackground();
                             "password",
                             "phone",
                             "userStatus"});
-                table1.AddRow(new string[] {
+                table2.AddRow(new string[] {
                             "4",
                             "Mike K",
                             "Mike",
@@ -171,7 +171,7 @@ this.FeatureBackground();
                             "98765434456",
                             "10"});
 #line 12
- testRunner.When("I perform POST operation for User with Table data", ((string)(null)), table1, "When ");
+ testRunner.When("I perform POST operation for User with Table data", ((string)(null)), table2, "When ");
 #line hidden
 #line 15
  testRunner.Then("I should see the response as successful with status code as 200 ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -214,7 +214,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 4
 this.FeatureBackground();
 #line hidden
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                             "id",
                             "username",
                             "firstName",
@@ -223,7 +223,7 @@ this.FeatureBackground();
                             "password",
                             "phone",
                             "userStatus"});
-                table2.AddRow(new string[] {
+                table3.AddRow(new string[] {
                             "5",
                             "Mike K",
                             "Mike",
@@ -233,7 +233,7 @@ this.FeatureBackground();
                             "98765434456",
                             "5"});
 #line 18
- testRunner.When(string.Format("I perform PUT operation for User to update details of username \"{0}\"", username), ((string)(null)), table2, "When ");
+ testRunner.When(string.Format("I perform PUT operation for User to update details of username \"{0}\"", username), ((string)(null)), table3, "When ");
 #line hidden
 #line 21
  testRunner.Then(string.Format("I should see the response with status code {0}", statuscode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
