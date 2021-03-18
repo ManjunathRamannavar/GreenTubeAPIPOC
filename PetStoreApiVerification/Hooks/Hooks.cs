@@ -45,6 +45,7 @@ namespace PetStoreApiVerification.Hooks
         }
 
         [BeforeFeature]
+        [Obsolete]
         public static void BeforeFeature()
         {
             featureName = extent.CreateTest<Feature>(FeatureContext.Current.FeatureInfo.Title);
