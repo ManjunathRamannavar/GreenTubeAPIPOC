@@ -83,12 +83,12 @@ namespace PetStoreApiVerification.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Place an order for a PET")]
-        public virtual void PlaceAnOrderForAPET()
+        [NUnit.Framework.DescriptionAttribute("(1) Place an order for a PET")]
+        public virtual void _1PlaceAnOrderForAPET()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Place an order for a PET", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("(1) Place an order for a PET", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -119,7 +119,7 @@ this.FeatureBackground();
                             "status",
                             "complete"});
                 table1.AddRow(new string[] {
-                            "1",
+                            "2",
                             "1",
                             "10",
                             "placed",
@@ -135,16 +135,16 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Find purchase order by ID")]
-        [NUnit.Framework.TestCaseAttribute("1", "200", null)]
+        [NUnit.Framework.DescriptionAttribute("(2) Find purchase order by ID")]
+        [NUnit.Framework.TestCaseAttribute("2", "200", null)]
         [NUnit.Framework.TestCaseAttribute("1111", "404", null)]
-        public virtual void FindPurchaseOrderByID(string iD, string statuscode, string[] exampleTags)
+        public virtual void _2FindPurchaseOrderByID(string iD, string statuscode, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("ID", iD);
             argumentsOfScenario.Add("statuscode", statuscode);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Find purchase order by ID", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("(2) Find purchase order by ID", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 13
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -179,9 +179,9 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Create Order by POST and Verify by GET operation")]
+        [NUnit.Framework.DescriptionAttribute("(3) Create Order by POST and Verify by GET operation")]
         [NUnit.Framework.TestCaseAttribute("10", "3", "10", "waiting", "false", "200", null)]
-        public virtual void CreateOrderByPOSTAndVerifyByGETOperation(string id, string petId, string quantity, string status, string complete, string statuscode, string[] exampleTags)
+        public virtual void _3CreateOrderByPOSTAndVerifyByGETOperation(string id, string petId, string quantity, string status, string complete, string statuscode, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
@@ -191,7 +191,7 @@ this.FeatureBackground();
             argumentsOfScenario.Add("status", status);
             argumentsOfScenario.Add("complete", complete);
             argumentsOfScenario.Add("statuscode", statuscode);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create Order by POST and Verify by GET operation", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("(3) Create Order by POST and Verify by GET operation", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 22
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
